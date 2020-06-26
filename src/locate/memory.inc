@@ -3,8 +3,8 @@
 (* Get the a integer value based on address passed by parameter. *)
 Function GetInteger( Var nAddress : Integer ) : Integer;
 Var
-        nCount  : Byte;
-        nResult : Integer;
+  nCount  : Byte;
+  nResult : Integer;
 
 Begin
   nCount := SizeOf( Integer );
@@ -16,7 +16,7 @@ End;
 (* Get the a byte memory position based on address passed *)
 Function GetByte( Var nAddress : Integer ) : Byte;
 Var
-        nResult : Byte;
+  nResult : Byte;
 
 Begin
   nResult  := Mem[nAddress];

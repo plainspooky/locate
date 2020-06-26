@@ -6,36 +6,36 @@ Const   ctMaxDskDevices : Byte = $8;    { Maximum disk drives devices }
 
 (* Return codes *)
 
-Const   ctOK            : Byte = $0;    { Success }
-        ctError         : Byte = $1;    { Error }
-        ctBDOSErr       : Byte = $FF;   { BDOS error value }
+Const ctOK              : Byte = $0;    { Success }
+      ctError           : Byte = $1;    { Error }
+      ctBDOSErr         : Byte = $FF;   { BDOS error value }
 
 (* Disk formats *)
 
-Const   ctSingleSided31_2 : Byte = $F8; { 31/2 Single Sided floppy }
-        ctDoubleSided31_2 : Byte = $F9; { 31/2 Double Sided floppy }
-        ctSingleSided51_4 : Byte = $FC; { 51/4 Single Sided floppy }
-        ctDoubleSided51_4 : Byte = $FD; { 51/4 Double Sided floppy }
+Const ctSingleSided31_2 : Byte = $F8; { 3 1/2" Single Sided floppy }
+      ctDoubleSided31_2 : Byte = $F9; { 3 1/2" Double Sided floppy }
+      ctSingleSided51_4 : Byte = $FC; { 5 1/4" Single Sided floppy }
+      ctDoubleSided51_4 : Byte = $FD; { 5 1/4" Double Sided floppy }
 
 (* Disk side *)
 
-Const   ctSingleSided     : Byte = $0;  { Single Sided }
-        ctDoubleSided     : Byte = $1;  { Double Sided }
+Const ctSingleSided     : Byte = $0;  { Single Sided }
+      ctDoubleSided     : Byte = $1;  { Double Sided }
 
 (* MSXDOS addresses *)
 
-Const   ctMaxPhysicalDrv  = $F1C8;      { Maximum Physical drives }
-        ctDefaultDrive    = $F247;      { Default drive }
-        ctMSXDOSBoot      = $F346;      { Boot with or without MSXDOS }
-        ctMaxLogicalDrv   = $F347;      { Maximum logical drives }
-        ctDiskIntfSlot    = $F348;      { Disk interface slot }
-        ctRAMFATAddress   = $F34D;      { Copy of FAT in RAM address }
-        ctDMAAddress      = $F34F;      { DMA Address }
-        ctSectorAddress   = $F351;      { Sector buffer address }
-        ctFCBAddress      = $F353;      { FCB address }
-        ctDPBAddress      = $F355;      { DPB start address SizeOf(int) step }
-                                        { for each system drive ($F355 - A) }
-                                        { ($F357 - B ...) }
+Const ctMaxPhysicalDrv  = $F1C8;      { Maximum Physical drives }
+      ctDefaultDrive    = $F247;      { Default drive }
+      ctMSXDOSBoot      = $F346;      { Boot with or without MSXDOS }
+      ctMaxLogicalDrv   = $F347;      { Maximum logical drives }
+      ctDiskIntfSlot    = $F348;      { Disk interface slot }
+      ctRAMFATAddress   = $F34D;      { Copy of FAT in RAM address }
+      ctDMAAddress      = $F34F;      { DMA Address }
+      ctSectorAddress   = $F351;      { Sector buffer address }
+      ctFCBAddress      = $F353;      { FCB address }
+      ctDPBAddress      = $F355;      { DPB start address SizeOf(int) step }
+                                      { for each system drive ($F355 - A) }
+                                      { ($F357 - B ...) }
 
 (* File control block (FCB) data structure *)
 Type  TFCB = Record
@@ -55,18 +55,18 @@ End;
 (* Disk Parameter Block (DPB) structure definition *)
 Type TPDPB = ^TDPB;
 TDPB = Record
-  DrvNum               : Byte   ;       { Drive number ( A = 0, B = 1,... }
-  DiskFormat           : Byte   ;       { Disk Format F8/F9/FA/FB/FC/FD/FE/FF }
+  DrvNum               : Byte;          { Drive number ( A = 0, B = 1,... }
+  DiskFormat           : Byte;          { Disk Format F8/F9/FA/FB/FC/FD/FE/FF }
   BytesPerSector       : Integer;       { Bytes per sector }
   Reserved             : Integer;       { Reserved (0Fh)- No information }
-  DiskSides            : Byte   ;       { Number of disk sides }
-  SectorsByCluster     : Byte   ;       { Sectors by cluster }
+  DiskSides            : Byte;          { Number of disk sides }
+  SectorsByCluster     : Byte;          { Sectors by cluster }
   ReservedSectors      : Integer;       { Number of reserved sectors }
-  FATCount             : Byte   ;       { Number of FAT's }
-  DirectoryEntries     : Byte   ;       { Directory entries }
+  FATCount             : Byte;          { Number of FAT's }
+  DirectoryEntries     : Byte;          { Directory entries }
   StorageEntrySector   : Integer;       { Initial disk sector - After FAT }
   DiskClusters         : Integer;       { Disk clusters }
-  SectorsByFAT         : Byte   ;       { Sectors by FAT }
+  SectorsByFAT         : Byte;          { Sectors by FAT }
   DirectoryEntrySector : Integer;       { Start of Directory entry (Sector) }
   FatAreaMemoryAddress : Integer;       { FAT Memory Address (RAM) }
 End;
@@ -74,10 +74,10 @@ End;
 (* Get the disk parameter block (DPB) for specified drive. *)
 Function GetDPB( Drive : Byte; Var DPB : TDPB ) : Byte;
 Var
-      DPBRAMAddr : Integer;
-      DPBAddr    : Integer;
-      ErrorFlag  : Byte   ;
-      TempFCB    : TFCB   ;
+  DPBRAMAddr : Integer;
+  DPBAddr    : Integer;
+  ErrorFlag  : Byte;
+  TempFCB    : TFCB;
 
 Begin
   ErrorFlag := ctOK;
@@ -86,7 +86,7 @@ Begin
     ErrorFlag  := ctError               { Error - Max drives limit reached }
   Else
   Begin
-    { Just perform a disk operation to update the MSX's memory DPB.      }
+    { Just perform a disk operation to update memory DPB of MSX.         }
     { Do this always because the user can change de disk from drive and  }
     { then the DPB  will be outdated.                                    }
 

@@ -5,16 +5,17 @@
 Const
 	ctClose                = $10;   { close file                      }
 	ctCreate               = $16;   { create file                     }
-	ctDelete               = $13;   { delete file                     }        
-        ctOpen                 = $F;    { open file                       }
-        ctRename               = $17;   { rename file                     }
+	ctDelete               = $13;   { delete file                     }
+  ctOpen                 = $F;    { open file                       }
+  ctRename               = $17;   { rename file                     }
 
 (* Execute a MSX BDOS function. *)
 Procedure MSXBDOS( Var regs : TRegs );
 Var
-        nA, nF         : Byte;
-        nHL, nDE, nBC  : Integer;
-        nIX, nIY       : Integer;
+  nA, nF         : Byte;
+  nHL, nDE, nBC  : Integer;
+  nIX, nIY       : Integer;
+
 Begin
   nA  := regs.A;
   nHL := regs.HL;

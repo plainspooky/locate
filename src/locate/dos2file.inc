@@ -1,13 +1,13 @@
 (*<dos2file.pas> CopyLeft (c) since 1995 by PopolonY2k. *)
 
-Const   ctInvalidFileHandle        = $FF; { Invalid file handle operation }
-        ctInvalidOpenMode          = $FE; { Invalid file open mode }
-        ctReadWriteError           = -1;  { Read/Write error operation }
+Const ctInvalidFileHandle        = $FF; { Invalid file handle operation }
+      ctInvalidOpenMode          = $FE; { Invalid file open mode }
+      ctReadWriteError           = -1;  { Read/Write error operation }
 
-        { @see FileSeek operation }
-        ctSeekSet           : Byte = 0;   { Relative Beginning of the file }
-        ctSeekCur           : Byte = 1;   { Relative current pointer position }
-        ctSeekEnd           : Byte = 2;   { Relative end of file }
+      { @see FileSeek operation }
+      ctSeekSet           : Byte = 0;   { Relative Beginning of the file }
+      ctSeekCur           : Byte = 1;   { Relative current pointer position }
+      ctSeekEnd           : Byte = 2;   { Relative end of file }
 
 (* The file mode type for @see FileOpen function call; *)
 
@@ -28,10 +28,10 @@ Type TFileMode = String[3];
   *)
 Function FileOpen( Var strFileName : TFileName; strMode : TFileMode ) : Byte;
 Var
-        szFileName : Array[0..ctMaxPath] Of Char;
-        regs       : TRegs;
-        nRet,
-        nOpenMode  : Byte;
+  szFileName : Array[0..ctMaxPath] Of Char;
+  regs       : TRegs;
+  nRet,
+  nOpenMode  : Byte;
 
   (**
     * Internal function to check if the file mode is valid;
@@ -97,8 +97,8 @@ End;
   *)
 Function FileClose( nFileHandle : Byte ) : Boolean;
 Var
-        regs : TRegs;
-        bRet : Boolean;
+  regs : TRegs;
+  bRet : Boolean;
 
 Begin
   regs.C := ctCloseFileHandle;
@@ -117,8 +117,8 @@ End;
   *)
 Function FileFlush( nFileHandle : Byte ) : Boolean;
 Var
-        regs : TRegs;
-        bRet : Boolean;
+  regs : TRegs;
+  bRet : Boolean;
 
 Begin
   regs.C := ctEnsureFileHandle;
@@ -138,8 +138,8 @@ End;
   *)
 Function FileDuplicate( nFileHandle : Byte ) : Byte;
 Var
-        regs : TRegs;
-        nRet : Byte;
+  regs : TRegs;
+  nRet : Byte;
 
 Begin
   nRet   := ctInvalidFileHandle;
@@ -170,8 +170,8 @@ Function FileSeek( nFileHandle : Byte;
                    nOrigin : Byte;
                    Var nNewPos : Integer ) : Boolean;
 Var
-        regs    : TRegs;
-        bRet    : Boolean;
+  regs    : TRegs;
+  bRet    : Boolean;
 
 Begin
   regs.C  := ctMoveFileHandlePointer;
